@@ -3,21 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Aetherion Studios</title>
+    <title>MindBlue - Luxury Login</title>
     <style>
-        /* (Mantenemos todo tu CSS igual hasta la parte de abajo) */
         :root {
-            --dark-teal: #093640;
-            --medium-teal: #207364;
-            --primary-teal: #2DA690;
-            --light-green: #D0F2D9;
-            --bg-white: #F2F2F2;
+            --bg-dark: #050a14;
+            --gold: #d4af37;
+            --gold-light: #f9e2af;
+            --deep-blue: #0a192f;
+            --text-gray: #a8b2d1;
         }
 
-        * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; margin: 0; padding: 0; }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', serif;
+        }
 
         body {
-            background-color: var(--light-green);
+            background-color: var(--bg-dark);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -25,47 +29,74 @@
             overflow: hidden;
         }
 
+        /* Contenedor principal con el formato original */
         .login-card {
-            background-color: white;
+            background-color: var(--deep-blue);
             width: 900px;
             height: 550px;
             display: flex;
             border-radius: 20px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
             position: relative;
             overflow: hidden;
+            border: 1px solid rgba(212, 175, 55, 0.2);
         }
 
+        /* Lado Izquierdo: Formulario */
         .login-left {
             flex: 1;
             padding: 60px;
             display: flex;
             flex-direction: column;
             justify-content: center;
+            z-index: 2;
         }
 
-        .login-left h2 { color: var(--dark-teal); margin-bottom: 30px; font-size: 2rem; }
+        .tabs {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
 
-        .input-group { margin-bottom: 20px; }
+        .tab {
+            color: var(--text-gray);
+            text-decoration: none;
+            font-size: 1.5rem;
+            font-weight: bold;
+            cursor: pointer;
+            padding-bottom: 5px;
+            border-bottom: 2px solid transparent;
+            transition: 0.3s;
+        }
+
+        .tab.active {
+            color: var(--gold);
+            border-bottom: 2px solid var(--gold);
+        }
+
+        .input-group {
+            margin-bottom: 25px;
+        }
 
         .input-group input {
             width: 100%;
             padding: 12px 20px;
-            border: 1px solid #ddd;
+            border: 1px solid rgba(212, 175, 55, 0.3);
             border-radius: 25px;
-            background-color: var(--bg-white);
+            background-color: rgba(255, 255, 255, 0.05);
+            color: white;
             outline: none;
             transition: 0.3s;
         }
 
         .input-group input:focus {
-            border-color: var(--primary-teal);
-            box-shadow: 0 0 8px rgba(45, 166, 144, 0.2);
+            border-color: var(--gold);
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
         }
 
-        .btn-login {
-            background-color: var(--primary-teal);
-            color: white;
+        .btn-gold {
+            background-color: var(--gold);
+            color: var(--bg-dark);
             padding: 12px;
             border: none;
             border-radius: 25px;
@@ -73,110 +104,85 @@
             font-size: 1rem;
             font-weight: bold;
             transition: 0.3s;
-            margin-top: 10px;
         }
 
-        .btn-login:hover { background-color: var(--medium-teal); }
+        .btn-gold:hover {
+            background-color: var(--gold-light);
+            transform: translateY(-2px);
+        }
 
-        .forgot-pass { text-align: center; margin-top: 15px; color: #888; font-size: 0.9rem; text-decoration: none; }
-
+        /* Lado Derecho: Decoración Isométrica */
         .login-right {
             flex: 1;
-            background-color: var(--light-green);
+            background: radial-gradient(circle at center, #112240 0%, #050a14 100%);
             position: relative;
             display: flex;
             justify-content: center;
             align-items: center;
         }
 
+        /* Círculos decorativos oscuros */
         .circle-bg {
             position: absolute;
             width: 150%;
             height: 150%;
-            background-color: white;
+            background-color: var(--deep-blue);
             border-radius: 50%;
-            left: -30%;
+            left: -20%;
             z-index: 0;
+            opacity: 0.5;
         }
 
-        .illustration { z-index: 1; width: 80%; }
+        .illustration {
+            z-index: 1;
+            width: 80%;
+        }
 
         .logo {
             position: absolute;
             top: 30px;
             left: 40px;
-            color: var(--medium-teal);
+            color: var(--gold);
             font-weight: bold;
-            font-size: 1.2rem;
-        }
-
-        /* Estilo para el mensaje de error */
-        #message {
-            margin-top: 15px;
-            font-size: 0.85rem;
-            text-align: center;
-            min-height: 20px;
+            letter-spacing: 2px;
         }
     </style>
 </head>
 <body>
 
     <div class="login-card">
-        <div class="logo">Aetherion Studios</div>
+        <div class="logo">EQUILIBRIO ACADÉMICO</div>
         
         <div class="login-left">
-            <h2>Login</h2>
-            <form id="loginForm">
-                <div class="input-group">
-                    <input type="email" id="userEmail" placeholder="Email o teléfono" required>
-                </div>
-                <div class="input-group">
-                    <input type="password" id="userPass" placeholder="Contraseña" required>
-                </div>
-                <button type="submit" class="btn-login" style="width: 100%;">Login</button>
-            </form>
-            <div id="message"></div>
-            <a href="#" class="forgot-pass">¿Olvidaste tu contraseña?</a>
+            <div class="tabs">
+                <span class="tab active">Login</span>
+                <span class="tab" onclick="alert('Pestaña de registro activada')">Registrarse</span>
+            </div>
+            
+            <div class="input-group">
+                <input type="email" placeholder="Email o usuario">
+            </div>
+            <div class="input-group">
+                <input type="password" placeholder="Contraseña">
+            </div>
+            
+            <button class="btn-gold">ENTRAR</button>
+            <p style="color: var(--text-gray); font-size: 0.8rem; margin-top: 20px; text-align: center;">
+                ¿Olvidaste tu contraseña?
+            </p>
         </div>
 
         <div class="login-right">
             <div class="circle-bg"></div>
             <div class="illustration">
                 <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-                    <rect x="40" y="60" width="120" height="80" rx="5" fill="#093640" />
-                    <rect x="45" y="65" width="110" height="70" rx="2" fill="white" />
-                    <rect x="30" y="140" width="140" height="10" rx="5" fill="#207364" />
+                    <rect x="40" y="60" width="120" height="80" rx="5" fill="#d4af37" />
+                    <rect x="45" y="65" width="110" height="70" rx="2" fill="#0a192f" />
+                    <rect x="30" y="140" width="140" height="10" rx="5" fill="#b8860b" />
                 </svg>
             </div>
         </div>
     </div>
-
-    <script>
-        const loginForm = document.getElementById('loginForm');
-        const message = document.getElementById('message');
-
-        loginForm.addEventListener('submit', (e) => {
-            e.preventDefault(); // Evita que la página se recargue
-
-            const email = document.getElementById('userEmail').value;
-            const pass = document.getElementById('userPass').value;
-
-            // Simulación de validación
-            if (email === "admin@aetherion.com" && pass === "1234") {
-                message.style.color = "#2DA690";
-                message.innerText = "¡Bienvenida, Heysel! Redirigiendo...";
-                
-                // Aquí puedes mandarlo a otra página después de 2 segundos
-                setTimeout(() => {
-                    window.location.href = "https://github.com/Heysel9"; 
-                }, 2000);
-
-            } else {
-                message.style.color = "red";
-                message.innerText = "Usuario o contraseña incorrectos.";
-            }
-        });
-    </script>
 
 </body>
 </html>
