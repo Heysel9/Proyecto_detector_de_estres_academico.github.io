@@ -17,3 +17,39 @@ document.addEventListener('DOMContentLoaded', () => {
     if (btnLogin) btnLogin.addEventListener('click', showLogin);
     if (btnLogin2) btnLogin2.addEventListener('click', showLogin);
 });
+
+
+// --- LÓGICA PARA EL REGISTRO (EL MOTOR) ---
+const signupForm = document.querySelector('.signup-container form');
+
+if (signupForm) {
+    signupForm.addEventListener('submit', async (e) => {
+        e.preventDefault(); // Evita que la página se recargue sola
+
+        // 1. Capturamos los datos de los inputs del formulario
+        const nombre = signupForm.querySelector('input[type="text"]').value;
+        const email = signupForm.querySelector('input[type="email"]').value;
+        const password = signupForm.querySelector('input[type="password"]').value;
+
+        try {
+            // 2. Enviamos los datos al servidor que tienes en el puerto 3000
+            const response = await fetch('proyectodetectordeestresacademicogithubio-production.up.railway.app', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ nombre, email, password })
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                alert("¡Registro exitoso! Ya puedes revisar Railway.");
+                signupForm.reset(); // Limpia el formulario
+            } else {
+                alert("Error al registrar: " + data.error);
+            }
+        } catch (error) {
+            console.error("Error en la conexión:", error);
+            alert("No se pudo conectar con el servidor. ¿Está encendido en VS Code?");
+        }
+    });
+}
