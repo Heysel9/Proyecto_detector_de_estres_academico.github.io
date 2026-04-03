@@ -1,12 +1,17 @@
-const { Pool } = require('pg');
-require('dotenv').config();
+// Archivo de conexión - StressAlert
+// Por ahora, la conexión está desactivada para evitar errores en Railway.
+
+/* const { Pool } = require('pg');
 
 const pool = new Pool({
-  user: process.env.DB_USER,
-  host: process.env.DB_HOST,
-  database: process.env.DB_NAME,
-  password: process.env.DB_PASSWORD,
-  port: process.env.DB_PORT,
+  connectionString: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false
+  }
 });
 
-module.exports = pool;
+module.exports = pool; 
+*/
+
+// Exportamos un objeto vacío temporalmente para que server.js no explote al importar
+module.exports = {};
