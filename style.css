@@ -1,4 +1,4 @@
-/* --- CONFIGURACIÓN GENERAL --- */
+/* --- 1. CONFIGURACIÓN GENERAL Y VARIABLES --- */
 * {
     margin: 0;
     padding: 0;
@@ -7,23 +7,25 @@
 }
 
 :root {
-    --verde-oscuro: #1E4D44;
+    --verde-oscuro: #1f9dad;
+    --verde-estetico: #4a756b;
     --verde-boton: #2D7A6F;
     --fondo-suave: #F0F4F3;
     --borde-input: #E0E6E4;
-    
 }
 
 body {
-    background-color: var(--fondo-suave);
+    margin: 0;
+    padding: 0;
+    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    overflow: hidden;
+    background: linear-gradient(120deg, #d0f2d9 0%, #e1f5fe 40%, #fff3e0 100%);
+    background-attachment: fixed;
 }
 
-/* --- CONTENEDOR PRINCIPAL --- */
+/* --- 2. SECCIÓN LOGIN / SIGNUP --- */
 .main-container {
     background: white;
     border-radius: 20px;
@@ -35,7 +37,6 @@ body {
     min-height: 480px;
 }
 
-/* --- SECCIÓN DE FORMULARIOS --- */
 .forms-container {
     position: absolute;
     top: 0;
@@ -62,7 +63,6 @@ body {
 .sign-in-container { left: 0; z-index: 2; }
 .sign-up-container { left: 0; opacity: 0; z-index: 1; }
 
-/* --- EL OVERLAY (La Cortina Móvil, el movimiento que cambia con los botones) --- */
 .overlay-container {
     position: absolute;
     top: 0;
@@ -84,23 +84,14 @@ body {
     height: 100%;
     width: 200%;
     transform: translateX(0);
-    transition: transform 0.6s cubic-bezier(0.7, 0, 0.3, 1), background-position 0.6s ease;
-    
+    transition: transform 0.6s cubic-bezier(0.7, 0, 0.3, 1);
 }
 
-/* --- LÓGICA DE MOVIMIENTO --- */
-.main-container.active-signup .overlay-container { 
-    transform: translateX(-100%); 
-}
-
-.main-container.active-signup .overlay { 
-    transform: translateX(50%); 
-}
-
+.main-container.active-signup .overlay-container { transform: translateX(-100%); }
+.main-container.active-signup .overlay { transform: translateX(50%); }
 .main-container.active-signup .sign-in-container { transform: translateX(100%); opacity: 0; }
 .main-container.active-signup .sign-up-container { transform: translateX(100%); opacity: 1; z-index: 5; }
 
-/* --- PANELES DE TEXTO --- */
 .overlay-panel {
     position: absolute;
     display: flex;
@@ -116,23 +107,14 @@ body {
     transition: transform 0.6s ease-in-out;
 }
 
-.overlay-panel h1 { font-size: 2rem; margin-bottom: 10px; }
-.overlay-panel p { font-size: 0.9rem; line-height: 1.4; }
-
 .overlay-left { transform: translateX(-20%); }
 .overlay-right { right: 0; transform: translateX(0); }
-
 .main-container.active-signup .overlay-left { transform: translateX(0); }
 .main-container.active-signup .overlay-right { transform: translateX(20%); }
 
-/* --- BOTONES E INPUTS --- */
 .welcome-msg { color: var(--verde-oscuro); margin-bottom: 15px; font-size: 1.6rem; }
 
-.toggle-group {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 25px;
-}
+.toggle-group { display: flex; gap: 10px; margin-bottom: 25px; }
 
 .btn-toggle {
     background-color: transparent;
@@ -143,16 +125,10 @@ body {
     color: #999;
     border-radius: 8px;
     transition: all 0.3s;
-    font-weight: 500;
 }
 
-.btn-toggle.active {
-    background-color: var(--fondo-suave);
-    color: var(--verde-oscuro);
-    font-weight: bold;
-}
+.btn-toggle.active { background-color: var(--fondo-suave); color: var(--verde-oscuro); font-weight: bold; }
 
-.input-group { width: 100%; }
 .input-group input {
     width: 100%;
     padding: 12px;
@@ -163,14 +139,6 @@ body {
     outline: none;
 }
 
-.forgot-link {
-    color: #999;
-    font-size: 0.85rem;
-    text-decoration: none;
-    margin-bottom: 30px;
-    display: block;
-}
-
 .btn-submit {
     background-color: var(--verde-oscuro);
     color: white;
@@ -178,14 +146,400 @@ body {
     padding: 12px 40px;
     border-radius: 8px;
     cursor: pointer;
-    font-size: 1rem;
     font-weight: bold;
     text-transform: uppercase;
+    transition: 0.3s;
+}
+
+.btn-submit:hover { transform: translateY(-2px); background-color: #144d44; }
+
+/* Esto separará el link del botón y de los inputs */
+.auth-form a {
+    color: #333;
+    font-size: 14px;
+    text-decoration: none;
+    margin: 15px 0;
+    display: inline-block; /* Para que el margin funcione correctamente */
+}
+
+.auth-form a:hover {
+    color: var(--verde-oscuro);
+    text-decoration: underline;
+}
+
+/* --- 3. SECCIÓN DASHBOARD (Sidebar Interactiva) --- */
+#dashboard-view {
+    display: none; 
+    width: 95vw;
+    height: 90vh;
+    background: rgba(255, 255, 255, 0.25); 
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
+    border-radius: 40px;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.08);
+    display: flex;
+    overflow: hidden;
+}
+
+/* SIDEBAR RECARGADA */
+/* --- SIDEBAR: REPARACIÓN FINAL (eso creo) --- */
+.sidebar {
+    width: 80px; 
+    background: rgba(255, 255, 255, 0.2);
+    border-right: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 20px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centra todo cuando está cerrada */
+    transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden; 
+    white-space: nowrap;
+    z-index: 10;
+}
+
+.sidebar:hover {
+    width: 260px;
+    align-items: flex-start; /* Alinea a la izquierda al abrir */
+    padding-left: 15px;
+}
+
+/* AVATAR Y PERFIL: Ajuste de posición */
+.profile-section {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centrado inicial */
+    margin-bottom: 30px;
     transition: all 0.3s;
 }
 
-.btn-submit:hover {
-    background-color: #144d44;
-    transform: translateY(-2px);
+/*Ni idea que hice, el menú funciona si se desarma no es mi culpa */
+
+
+.sidebar:hover .profile-section {
+    align-items: flex-start;
+    padding-left: 10px;
 }
 
+.avatar {
+    width: 50px; 
+    height: 50px;
+    background: var(--verde-oscuro);
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    flex-shrink: 0;
+}
+
+/* Esconder textos de perfil */
+.profile-info, .logo-name {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s;
+    margin-left: 10px;
+}
+
+.sidebar:hover .profile-info,
+.sidebar:hover .logo-name {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* MENÚ: Centrado de iconos y ocultar texto */
+.menu-item {
+    display: flex;
+    align-items: center;
+    background: transparent;
+    border: none;
+    padding: 12px 0;
+    margin-bottom: 5px;
+    border-radius: 12px;
+    cursor: pointer;
+    color: #444;
+    width: 100%;
+}
+
+.menu-item .icon {
+    min-width: 80px; /* Crucial para que el icono se quede en el centro de la barra de 80px */
+    display: flex;
+    justify-content: center;
+    font-size: 1.4rem;
+}
+
+.menu-item .text {
+    opacity: 0;
+    visibility: hidden;
+    font-weight: 600;
+    transition: opacity 0.3s;
+}
+
+.sidebar:hover .menu-item .text {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Estilo para el botón activo o hover */
+.menu-item:hover, .menu-item.active {
+    background: white;
+    color: var(--verde-oscuro);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+/* --- 4. CONTENIDO PRINCIPAL --- */
+.main-content {
+    flex: 1;
+    padding: 40px;
+    overflow-y: auto;
+    transition: all 0.4s;
+    display: flex;
+    flex-direction: column;
+}
+
+.search-bar {
+    width: 400px;
+    padding: 12px 25px;
+    border-radius: 30px;
+    border: 1px solid rgba(0,0,0,0.05);
+    background: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+    outline: none;
+    font-size: 0.9rem;
+    margin-bottom: 50px;
+}
+
+.hero-module {
+    background: rgba(255, 255, 255, 0.7);
+    padding: 45px;
+    border-radius: 35px;
+    margin-bottom: 40px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.02);
+}
+
+.hero-module h2 { font-size: 2.4rem; color: #2d3436; margin-bottom: 10px; }
+
+.btn-main {
+    background: var(--verde-oscuro);
+    color: white;
+    border: none;
+    padding: 14px 28px;
+    border-radius: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-main:hover { 
+    background: var(--verde-boton); 
+    transform: translateY(-2px); 
+    box-shadow: 0 5px 15px rgba(30, 77, 68, 0.2);
+}
+
+/* TARJETAS INFERIORES */
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.mini-card {
+    background: white;
+    padding: 25px;
+    border-radius: 25px;
+    text-align: center;
+    font-weight: bold;
+    color: #444;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.02);
+    transition: 0.3s;
+}
+
+.mini-card:hover { transform: translateY(-5px); }
+
+/* --- AJUSTE DE PRECISIÓN PARA SIDEBAR --- */
+
+#dashboard-view .sidebar {
+    width: 80px;
+    min-width: 80px; /* Bloquea el ancho para que no colapse */
+    transition: width 0.4s ease;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    white-space: nowrap;
+}
+
+#dashboard-view .sidebar:hover {
+    width: 260px;
+    align-items: flex-start;
+    padding-left: 10px;
+}
+
+/* OCULTAR TEXTOS: Usamos display none para que no empujen los iconos */
+#dashboard-view .profile-info,
+#dashboard-view .logo-name,
+#dashboard-view .menu-item .text {
+    display: none; 
+    opacity: 0;
+}
+
+/* MOSTRAR TEXTOS AL HOVER */
+#dashboard-view .sidebar:hover .profile-info,
+#dashboard-view .sidebar:hover .logo-name,
+#dashboard-view .sidebar:hover .menu-item .text {
+    display: block;
+    opacity: 1;
+}
+
+/* CENTRADO DE ICONOS: La clave del 80px */
+#dashboard-view .menu-item .icon,
+#dashboard-view .sidebar-header .logo {
+    min-width: 80px; /* Esto fuerza al icono a quedarse en el centro de la barra de 80px */
+    display: flex;
+    justify-content: center;
+    font-size: 1.4rem;
+    flex-shrink: 0;
+}
+
+#dashboard-view .menu-item {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 12px 0;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+/* Evita que el perfil se mueva feo */
+#dashboard-view .profile-section {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+#dashboard-view .sidebar:hover .profile-section {
+    flex-direction: row;
+    padding-left: 10px;
+}
+
+/*calendario*/
+/* --- LAYAOUT (Para ponerlos a la par) --- */
+.hero-main-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start; /* Alineados arriba */
+    gap: 30px; /* Espacio de seguridad entre ambos */
+    padding: 10px;
+}
+
+/* --- ESTILO COLUMNA 1: Saludo y Lámpara --- */
+.hero-content {
+    flex: 1; /* Ocupa el espacio disponible para que no este amontonado */
+}
+
+/* Ajuste del iframe de la lámpara */
+#lamp-iframe {
+    width: 120px;
+    height: 140px;
+    border: none;
+    background: transparent;
+    overflow: hidden;
+}
+
+/* --- ESTILO COLUMNA 2: El Calendario Separado de lo otro--- */
+.hero-calendar {
+    width: 280px; /* Ancho fijo para el calendario */
+}
+
+.calendar-card {
+    background: rgba(255, 255, 255, 0.2); /* Efecto Glassmorphism */
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 18px;
+    border: 1px solid rgba(255, 255, 255, 0.3); /* Borde sutil de vidrio */
+    /* ESTA ES LA CLAVE DE LA SEPARACIÓN (osea el de ll calendario pues): Sombra suave y relieve */
+    box-shadow: 
+        0 8px 32px rgba(31, 38, 135, 0.07),
+        inset 0 0 1px 1px rgba(255, 255, 255, 0.2);
+    color: #1E4D44; /* color verde */
+}
+
+/* Cabecera del calen */
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    color: #1c6b78; /* Color titulo */
+}
+
+.calendar-header h3 {
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-transform: capitalize;
+    margin: 0;
+    font-style: italic; /* Tipografia impovisada porque si */
+}
+
+.calendar-header button {
+    background: rgba(30, 77, 68, 0.1); /* Verde suave */
+    border: none;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+    color: #1E4D44;
+    transition: 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.calendar-header button:hover {
+    background: #1E4D44;
+    color: white;
+}
+
+/* LA CUADRÍCULA  */
+.cal-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+    text-align: center;
+}
+
+.day-name {
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: #777;
+    text-transform: uppercase;
+}
+
+.day {
+    font-size: 0.75rem;
+    padding: 7px 0;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.2s;
+    color: #444;
+}
+
+.day:hover:not(.inactive) {
+    background: rgba(30, 77, 68, 0.08);
+}
+
+/* Hoy */
+.day.active {
+    background: #3ad2b1;
+    color: white;
+    font-weight: bold;
+    box-shadow: 0 4px 10px rgba(15, 94, 78, 0.3);
+}
+
+.day.inactive {
+    color: #ccc;
+}

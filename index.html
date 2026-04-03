@@ -56,6 +56,88 @@
         </div>
     </div>
 
+<div class="dashboard-container" id="dashboard-view" style="display: none;">
+    <aside class="sidebar">
+        <!-- PERFIL -->
+        <div class="profile-section">
+    <div class="avatar">🤖</div>
+    <div class="profile-info">
+        <h3>Bienestar Estudiantil</h3>
+        <p>Perfil del estudiante</p>
+    </div>
+</div>
+
+        <!-- MENÚ -->
+        <nav class="sidebar-menu">
+            <button class="menu-item active">
+                <span class="icon">🏠</span>
+                <span class="text">Dashboard</span>
+            </button>
+            <button class="menu-item">
+                <span class="icon">📊</span>
+                <span class="text">Mi Progreso</span>
+            </button>
+            <button class="menu-item">
+                <span class="icon">🧘</span>
+                <span class="text">Bienestar</span>
+            </button>
+            <button class="menu-item">
+                <span class="icon">⚙️</span>
+                <span class="text">Ajustes</span>
+            </button>
+            <button id="btn-logout" class="menu-item">
+                <span class="icon">🚪</span>
+                <span class="text">Cerrar Sesión</span>
+            </button>
+        </nav>
+    </aside>
+
+    <!-- CONTENIDO PRINCIPAL -->
+
+    <main class="main-content">
+    <input type="text" class="search-bar" placeholder="Buscar...">
+
+    <div class="hero-module">
+        <div class="hero-container" style="display: flex; justify-content: space-between; align-items: center;">
+            
+            <div class="hero-left">
+                <h2 id="welcome-title"></h2> 
+                
+                <div style="display: flex; align-items: center; gap: 15px;">
+                    <iframe src="lampara.html" style="width: 120px; height: 140px; border: none; background: transparent;" scrolling="no"></iframe>
+                    <div>
+                        <p id="daily-proverb" style="font-style: italic; margin: 0; opacity: 0; transition: opacity 0.3s ease;"></p>
+                        <small style="color: #888;">Haz clic en la lámpara para iluminar tu día.</small>
+                    </div>
+                </div>
+            </div>
+
+            <!--CALENDARIO IMPRO (Tengo un desorden pero funciona) -->
+
+            <div class="hero-calendar">
+            <div class="calendar-card">
+                <div class="calendar-header">
+                    <button id="prev-month">&lt;</button>
+                    <h3 id="month-display"></h3>
+                    <button id="next-month">&gt;</button>
+                </div>
+                <div id="calendar-content"></div>
+            </div>
+        </div>
+
+        </div>
+    </div>
+
+    <div class="cards-grid">
+        <div class="mini-card">Card 1</div>
+        <div class="mini-card">Card 2</div>
+        <div class="mini-card">Card 3</div>
+    </div>
+</main>
+
     <script src="script.js"></script>
+    <script src="dashboard-interactivo.js"></script>
+</body>
+</html>
 </body>
 </html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body { margin: 0; display: flex; justify-content: center; align-items: center; height: 100vh; background: transparent; overflow: hidden; font-family: sans-serif; }
+        .lamp-container { position: relative; cursor: pointer; width: 120px; height: 160px; }
+        
+        /* El dibujo de la lámpara (SVG) */
+        svg { width: 100%; height: 100%; filter: drop-shadow(0 0 5px rgba(0,0,0,0.1)); }
+        
+        .shade { fill: #444; transition: 0.3s; }
+        .light-beam { fill: #fffb00; opacity: 0; transition: 0.3s; }
+        .eyes, .mouth { fill: #fff; opacity: 0.5; transition: 0.3s; }
+        .blush { fill: #ff6b6b; opacity: 0; transition: 0.3s; }
+
+        /* El cable que cuelga */
+        .cord { stroke: #333; stroke-width: 2; fill: none; transition: 0.3s; }
+        .cord-handle { fill: #222; }
+
+        /* ESTADO ENCENDIDO */
+        .on .shade { fill: #eee; }
+        .on .light-beam { opacity: 0.3; }
+        .on .eyes, .on .mouth { fill: #333; opacity: 1; }
+        .on .blush { opacity: 0.6; }
+        .on .cord { transform: translateY(5px); }
+        
+        /* Brillo alrededor */
+        .glow {
+            position: absolute; top: 20%; left: 50%; transform: translate(-50%, -50%);
+            width: 150px; height: 150px; background: radial-gradient(circle, rgba(255,251,0,0.4) 0%, transparent 70%);
+            border-radius: 50%; opacity: 0; transition: 0.3s; pointer-events: none;
+        }
+        .on .glow { opacity: 1; }
+    </style>
+</head>
+<body>
+    <div class="lamp-container" id="lamp" onclick="toggleLamp()">
+        <div class="glow"></div>
+        <svg viewBox="0 0 100 120">
+            <polygon class="light-beam" points="20,40 80,40 100,120 0,120" />
+            <rect x="48" y="40" width="4" height="60" fill="#333" />
+            <rect x="35" y="100" width="30" height="5" rx="2" fill="#222" />
+            <path class="shade" d="M25,10 L75,10 L85,45 L15,45 Z" />
+            <circle class="eyes" cx="40" cy="28" r="1.5" />
+            <circle class="eyes" cx="60" cy="28" r="1.5" />
+            <path class="mouth" d="M45,35 Q50,38 55,35" fill="none" stroke="#333" stroke-width="1" />
+            <circle class="blush" cx="35" cy="32" r="2" />
+            <circle class="blush" cx="65" cy="32" r="2" />
+            <line class="cord" x1="75" y1="45" x2="75" y2="75" />
+            <circle class="cord-handle" cx="75" cy="75" r="3" />
+        </svg>
+    </div>
+
+    <script>
+        // Dentro del <script> de lampara.html
+    function toggleLamp() {
+    const lamp = document.getElementById('lamp');
+    // Alternar la clase 'on'
+    const isNowOn = lamp.classList.toggle('on');
+    
+    // Si tiene la clase 'on' enviamos 'encendido', si no, 'apagado'
+    window.parent.postMessage(isNowOn ? 'encendido' : 'apagado', '*');
+}
+    </script>
+</body>
+</html>
