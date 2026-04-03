@@ -142,3 +142,37 @@ document.getElementById('next-month')?.addEventListener('click', () => {
 
 // 5. ¡funciona el calendario!
 renderizarCalendario();
+
+// Esperamos a que todo el HTML cargue para no tener errores de "null"
+document.addEventListener('DOMContentLoaded', () => {
+    
+    // 1. Buscamos el botón de Mi Progreso (Gráficas)
+    const btnProgreso = document.getElementById('btn-progreso');
+    
+    if (btnProgreso) {
+        btnProgreso.addEventListener('click', () => {
+            console.log("Navegando a gráficas...");
+            window.location.href = 'graficas_test.html'; 
+        });
+    }
+
+    // 2. Buscamos el botón de Logout
+    const btnLogout = document.getElementById('btn-logout');
+    
+    if (btnLogout) {
+        btnLogout.addEventListener('click', () => {
+            // Aquí podés limpiar el localStorage si usaron tokens
+            localStorage.clear(); 
+            window.location.href = 'login.html'; 
+        });
+    }
+
+    // 3. Efecto de "Active" (Opcional pero se ve pro)
+    const menuItems = document.querySelectorAll('.menu-item');
+    menuItems.forEach(item => {
+        item.addEventListener('click', () => {
+            menuItems.forEach(i => i.classList.remove('active'));
+            item.classList.add('active');
+        });
+    });
+});

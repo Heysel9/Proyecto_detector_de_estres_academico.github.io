@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Progreso - Bienestar Estudiantil</title>
+    <link rel="stylesheet" href="style.css"> <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .container-grafica {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin: 20px;
+        }
+        .btn-volver {
+            margin: 20px;
+            padding: 10px 20px;
+            background: #6c5ce7;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <button class="btn-volver" onclick="window.history.back()">⬅ Volver al Dashboard</button>
+    
+    <main class="content">
+        <h1>📊 Mi Progreso Académico</h1>
+        <p>Aquí puedes ver cómo ha evolucionado tu nivel de estrés esta semana.</p>
+
+        <div class="container-grafica">
+            <canvas id="graficaProgreso"></canvas>
+        </div>
+
+        <div class="cards-info">
+            <div class="card">
+                <h3>Estado Actual</h3>
+                <p id="estado-texto">Analizando datos...</p>
+            </div>
+        </div>
+    </main>
+
+    <script src="progreso.js"></script>
+</body>
+</html>
