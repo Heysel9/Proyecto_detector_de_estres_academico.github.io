@@ -33,7 +33,7 @@ if (signupForm) {
 
         try {
             // 2. Enviamos los datos al servidor que tienes en el puerto 3000
-            const response = await fetch('https://proyectodetectordeestresacademicogithubio-production.up.railway.app/registro', {
+            const response = await fetch('https://heysel9.github.io/Proyecto_detector_de_estres_academico.github.io/registro', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ nombre, email, password })
