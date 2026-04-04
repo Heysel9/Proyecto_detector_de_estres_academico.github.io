@@ -1,103 +1,140 @@
+// =============================================
+//  TOGGLE LOGIN / REGISTRO
+// =============================================
 document.addEventListener('DOMContentLoaded', () => {
-    // Referencias a los botones de intercambio
-    const btnSignup = document.getElementById('btn-signup-swap');
-    const btnSignup2 = document.getElementById('btn-signup-swap-2');
-    const btnLogin = document.getElementById('btn-login-swap');
-    const btnLogin2 = document.getElementById('btn-login-swap-2');
-    
-    const container = document.getElementById('main-wrapper');
 
-    // Funciones para cambiar de estado
-    const showSignup = () => container.classList.add('active-signup');
-    const showLogin = () => container.classList.remove('active-signup');
+    const container      = document.getElementById('main-wrapper');
+    const btnLoginSwap   = document.getElementById('btn-login-swap');
+    const btnSignupSwap  = document.getElementById('btn-signup-swap');
+    const btnLoginSwap2  = document.getElementById('btn-login-swap-2');
+    const btnSignupSwap2 = document.getElementById('btn-signup-swap-2');
 
-    // Asignar eventos a los botones
-    if (btnSignup) btnSignup.addEventListener('click', showSignup);
-    if (btnSignup2) btnSignup2.addEventListener('click', showSignup);
-    if (btnLogin) btnLogin.addEventListener('click', showLogin);
-    if (btnLogin2) btnLogin2.addEventListener('click', showLogin);
-});
-// --- LÓGICA PARA EL REGISTRO (EL MOTOR) ---
-const signupForm = document.querySelector('.signup-container form');
+    // Usa la clase CSS active-signup para activar las animaciones del overlay
+    function mostrarLogin() {
+        container?.classList.remove('active-signup');
+    }
 
-if (signupForm) {
-    signupForm.addEventListener('submit', async (e) => {
-        e.preventDefault(); // Evita que la página se recargue sola
+    function mostrarRegistro() {
+        container?.classList.add('active-signup');
+    }
 
-        // 1. Capturamos los datos de los inputs del formulario
-        const nombre = signupForm.querySelector('input[type="text"]').value;
-        const email = signupForm.querySelector('input[type="email"]').value;
-        const password = signupForm.querySelector('input[type="password"]').value;
+    btnLoginSwap?.addEventListener('click',   mostrarLogin);
+    btnSignupSwap?.addEventListener('click',  mostrarRegistro);
+    btnLoginSwap2?.addEventListener('click',  mostrarLogin);
+    btnSignupSwap2?.addEventListener('click', mostrarRegistro);
 
-        try {
-            // 2. Enviamos los datos al servidor que tienes en el puerto 3000
-            const response = await fetch('https://proyectodetectordeestresacademicogithubio-production.up.railway.app/registro', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ nombre, email, password })
-            });
+    // =============================================
+    //  ANIMACIÓN DE ENTRADA (pantalla de login)
+    // =============================================
+    if (container) {
+        container.style.display = 'flex';
+        setTimeout(() => { container.style.opacity = '1'; }, 50);
+    }
 
-            const data = await response.json();
+    // =============================================
+    //  MODAL: OLVIDÉ MI CONTRASEÑA
+    // =============================================
+    const forgotLink  = document.querySelector('.forgot-link');
+    const modalForgot = document.getElementById('modal-forgot');
+    const closeForgot = document.getElementById('close-forgot');
 
-            if (response.ok) {
-                alert("¡Registro exitoso! Ya puedes revisar Railway.");
-                signupForm.reset(); // Limpia el formulario
-            } else {
-                alert("Error al registrar: " + data.error);
+    forgotLink?.addEventListener('click', (e) => {
+        e.preventDefault();
+        if (modalForgot) modalForgot.style.display = 'flex';
+    });
+
+    closeForgot?.addEventListener('click', () => {
+        if (modalForgot) modalForgot.style.display = 'none';
+    });
+
+    modalForgot?.addEventListener('click', (e) => {
+        if (e.target === modalForgot) modalForgot.style.display = 'none';
+    });
+
+    // =============================================
+    //  MODO DESCANSO (Eye Care)
+    // =============================================
+    const btnEyeCare = document.getElementById('btn-eye-care');
+
+    btnEyeCare?.addEventListener('click', () => {
+        document.documentElement.classList.toggle('eye-care-mode');
+        const isActive = document.documentElement.classList.contains('eye-care-mode');
+        const span = btnEyeCare.querySelector('.text');
+        if (span) span.textContent = isActive ? 'Modo Normal' : 'Modo Descanso';
+    });
+
+    // =============================================
+    //  CALENDARIO
+    // =============================================
+    let currentDate = new Date();
+
+    function renderCalendar(date) {
+        const monthDisplay    = document.getElementById('month-display');
+        const calendarContent = document.getElementById('calendar-content');
+        if (!monthDisplay || !calendarContent) return;
+
+        const months = ['Enero','Febrero','Marzo','Abril','Mayo','Junio',
+                        'Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+
+        const year  = date.getFullYear();
+        const month = date.getMonth();
+        const today = new Date();
+
+        monthDisplay.textContent = `${months[month]} ${year}`;
+
+        const firstDay    = new Date(year, month, 1).getDay();
+        const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+        let html = '<div class="calendar-grid">';
+        ['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'].forEach(d => {
+            html += `<div class="cal-header">${d}</div>`;
+        });
+
+        for (let i = 0; i < firstDay; i++) html += '<div></div>';
+
+        for (let d = 1; d <= daysInMonth; d++) {
+            const isToday = d === today.getDate() &&
+                            month === today.getMonth() &&
+                            year  === today.getFullYear();
+            html += `<div class="cal-day${isToday ? ' today' : ''}">${d}</div>`;
+        }
+        html += '</div>';
+        calendarContent.innerHTML = html;
+    }
+
+    document.getElementById('prev-month')?.addEventListener('click', () => {
+        currentDate.setMonth(currentDate.getMonth() - 1);
+        renderCalendar(currentDate);
+    });
+
+    document.getElementById('next-month')?.addEventListener('click', () => {
+        currentDate.setMonth(currentDate.getMonth() + 1);
+        renderCalendar(currentDate);
+    });
+
+    renderCalendar(currentDate);
+
+    // =============================================
+    //  LÁMPARA — PROVERBIO DIARIO
+    // =============================================
+    const proverbios = [
+        "El conocimiento es la luz que ilumina el camino.",
+        "Cada día es una nueva oportunidad para aprender.",
+        "La perseverancia vence lo que la inteligencia no alcanza.",
+        "Estudia como si nunca supieras suficiente.",
+        "El esfuerzo de hoy es el éxito de mañana.",
+        "La mente que se abre a una nueva idea nunca vuelve a su tamaño original.",
+        "Aprender sin pensar es tiempo perdido.",
+    ];
+
+    window.addEventListener('message', (event) => {
+        if (event.data === 'lampara-click') {
+            const proverb = document.getElementById('daily-proverb');
+            if (proverb) {
+                proverb.textContent = proverbios[Math.floor(Math.random() * proverbios.length)];
+                proverb.style.opacity = '1';
             }
-        } catch (error) {
-            console.error("Error en la conexión:", error);
-            alert("No se pudo conectar con el servidor. ¿Está encendido en VS Code?");
         }
     });
-}
 
-document.getElementById('login-form').addEventListener('submit', function(e) {
-    e.preventDefault(); // Evita que la página se recargue
-
-    // 1. Ocultamos el login con una transición
-    const loginWrapper = document.getElementById('main-wrapper');
-    loginWrapper.style.transition = 'opacity 0.5s ease';
-    loginWrapper.style.opacity = '0';
-
-    setTimeout(() => {
-        loginWrapper.style.display = 'none';
-        
-        // 2. Mostramos el Dashboard
-        const dashboard = document.getElementById('dashboard-view');
-        dashboard.style.display = 'flex';
-        dashboard.style.opacity = '0';
-        
-        // Efecto de aparición suave
-        setTimeout(() => {
-            dashboard.style.transition = 'opacity 0.8s ease';
-            dashboard.style.opacity = '1';
-        }, 50);
-    }, 500);
-});
-
-
-document.getElementById('login-form').addEventListener('submit', function(e) {
-    e.preventDefault(); // Evita que la página se recargue
-
-    // 1. Ocultamos el login con una transición
-    const loginWrapper = document.getElementById('main-wrapper');
-    loginWrapper.style.transition = 'opacity 0.5s ease';
-    loginWrapper.style.opacity = '0';
-
-    setTimeout(() => {
-        loginWrapper.style.display = 'none';
-        
-        // 2. Mostramos el Dashboard
-        const dashboard = document.getElementById('dashboard-view');
-        dashboard.style.display = 'flex';
-        dashboard.style.opacity = '0';
-        
-        // Efecto de aparición suave
-        setTimeout(() => {
-            dashboard.style.transition = 'opacity 0.8s ease';
-            dashboard.style.opacity = '1';
-        }, 50);
-    }, 500);
-});
-
+}); // Fin DOMContentLoaded
