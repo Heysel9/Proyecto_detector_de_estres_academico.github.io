@@ -145,17 +145,6 @@ renderizarCalendario();
 
 // Esperamos a que todo el HTML cargue para no tener errores de "null"
 document.addEventListener('DOMContentLoaded', () => {
-    
-    // 1. Buscamos el botón de Mi Progreso (Gráficas)
-    const btnProgreso = document.getElementById('btn-progreso');
-    
-    if (btnProgreso) {
-        btnProgreso.addEventListener('click', () => {
-            console.log("Navegando a gráficas...");
-            window.location.href = 'graficas_test.html'; 
-        });
-    }
-
     // 2. Buscamos el botón de Logout
     const btnLogout = document.getElementById('btn-logout');
     
@@ -175,4 +164,40 @@ document.addEventListener('DOMContentLoaded', () => {
             item.classList.add('active');
         });
     });
+});
+
+//Si quitan esto tengan cuidado, se puede glitchtear
+document.addEventListener('DOMContentLoaded', () => {
+    const loginWrapper = document.getElementById('main-wrapper');
+    const dashboard = document.getElementById('dashboard-view');
+    const sesion = localStorage.getItem('sesionActiva');
+
+    if (sesion === 'true') {
+        // CASO A: Ya estás logueado -> Dashboard directo
+        dashboard.style.display = 'flex';
+        dashboard.style.opacity = '1';
+        loginWrapper.style.display = 'none'; // Por seguridad
+    } else {
+        // CASO B: No hay sesión -> Mostramos el Login
+        loginWrapper.style.display = 'flex';
+        setTimeout(() => {
+            loginWrapper.style.opacity = '1';
+            loginWrapper.style.transition = 'opacity 0.5s ease';
+        }, 10);
+    }
+});
+
+//Para evitar quemar ojos
+document.addEventListener('DOMContentLoaded', () => {
+    const btnEyeCare = document.getElementById('btn-eye-care');
+    
+    if (btnEyeCare) {
+        btnEyeCare.addEventListener('click', () => {
+            // El truco está en aplicarlo al HTML, no al body, si no, no agarra ok?
+            document.documentElement.classList.toggle('eye-care-mode');
+            console.log("Filtro activado:", document.documentElement.classList.contains('eye-care-mode'));
+        });
+    } else {
+        console.error("No encontré el botón con ID: btn-eye-care");
+    }
 });

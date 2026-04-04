@@ -3,46 +3,160 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mi Progreso - Bienestar Estudiantil</title>
-    <link rel="stylesheet" href="style.css"> <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <title>Mi Progreso | SIBE</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-        .container-grafica {
-            background: white;
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            margin: 20px;
+        :root {
+            /* Usando tus colores del estilo pastel */
+            --bg-gradient: linear-gradient(120deg, #d0f2d9 0%, #e1f5fe 40%, #fff3e0 100%);
+            --card: rgba(255, 255, 255, 0.7); /* Glassmorphism suave */
+            --accent: #6c5ce7;
+            --text-dark: #2d3436;
+            --text-muted: #636e72;
         }
-        .btn-volver {
-            margin: 20px;
-            padding: 10px 20px;
-            background: #6c5ce7;
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        body {
+            background: var(--bg-gradient);
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: var(--text-dark);
+        }
+
+        .container {
+            width: 95%;
+            max-width: 1100px;
+            padding: 20px;
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin: 0;
+            background: linear-gradient(90deg, #2d3436, #6c5ce7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .chart-card {
+            background: var(--card);
+            backdrop-filter: blur(10px); /* Efecto esmerilado */
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            transition: transform 0.3s ease;
+        }
+
+        .chart-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .btn-back {
+            background: white;
+            color: var(--accent);
+            padding: 12px 24px;
+            border-radius: 15px;
+            text-decoration: none;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(108, 92, 231, 0.2);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(108, 92, 231, 0.1);
+        }
+
+        .btn-back:hover {
+            background: var(--accent);
             color: white;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
+            transform: translateX(-5px);
+            box-shadow: 0 6px 20px rgba(108, 92, 231, 0.3);
+        }
+
+        .canvas-container { 
+            position: relative; 
+            height: 400px; 
+            width: 100%; 
         }
     </style>
 </head>
 <body>
-    <button class="btn-volver" onclick="window.history.back()">⬅ Volver al Dashboard</button>
+
+<div class="container">
+    <div class="header">
+        <h1>Análisis de Bienestar Académico</h1>
+        <a href="index.html" class="btn-back">⬅ Volver al Dashboard</a>
+    </div>
+
+    <div class="chart-card">
+        <div class="canvas-container">
+            <canvas id="miGrafica"></canvas>
+        </div>
+    </div>
+</div>
+
+<script>
+    const ctx = document.getElementById('miGrafica').getContext('2d');
     
-    <main class="content">
-        <h1>📊 Mi Progreso Académico</h1>
-        <p>Aquí puedes ver cómo ha evolucionado tu nivel de estrés esta semana.</p>
+    // Gradiente para el área de la gráfica mientras no esta con la bd
+    const gradient = ctx.createLinearGradient(0, 0, 0, 400);
+    gradient.addColorStop(0, 'rgba(108, 92, 231, 0.4)');
+    gradient.addColorStop(1, 'rgba(108, 92, 231, 0.0)');
 
-        <div class="container-grafica">
-            <canvas id="graficaProgreso"></canvas>
-        </div>
-
-        <div class="cards-info">
-            <div class="card">
-                <h3>Estado Actual</h3>
-                <p id="estado-texto">Analizando datos...</p>
-            </div>
-        </div>
-    </main>
-
-    <script src="progreso.js"></script>
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'],
+            datasets: [{
+                label: 'Nivel de Satisfacción',
+                data: [8, 6, 9, 5, 7, 4, 10],
+                borderColor: '#6c5ce7',
+                backgroundColor: gradient,
+                borderWidth: 4,
+                tension: 0.4,
+                fill: true,
+                pointRadius: 6,
+                pointHoverRadius: 10,
+                pointBackgroundColor: '#fff',
+                pointBorderColor: '#6c5ce7',
+                pointBorderWidth: 3
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { 
+                legend: { 
+                    display: false // Ocultamos la leyenda para que se vea más limpio
+                } 
+            },
+            scales: {
+                y: { 
+                    beginAtZero: true, 
+                    max: 10, 
+                    ticks: { color: '#636e72', font: { weight: '600' } }, 
+                    grid: { color: 'rgba(0,0,0,0.05)' } 
+                },
+                x: { 
+                    ticks: { color: '#636e72', font: { weight: '600' } }, 
+                    grid: { display: false } 
+                }
+            }
+        }
+    });
+</script>
 </body>
 </html>
