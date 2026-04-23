@@ -398,7 +398,7 @@ $iconos_animo = ['bien' => '😊', 'regular' => '😐', 'mal' => '😔'];
         .mini-card { display: flex; flex-direction: column; gap: 6px; }
         .mini-card .card-valor { font-size: 2rem; font-weight: 700; }
         .mini-card .card-label { font-size: 0.8rem; opacity: 0.7; }
-        .card-estres  .card-valor { color: #e74c3c; }
+        .card-estres  .card-valor { color: #3c8ce7; }
         .card-sueno   .card-valor { color: #3498db; }
         .card-recs    .card-valor { color: #2ecc71; }
 
@@ -410,7 +410,7 @@ $iconos_animo = ['bien' => '😊', 'regular' => '😐', 'mal' => '😔'];
         .slider-group input[type="range"] { flex: 1; }
         .slider-group span {
             min-width: 32px; text-align: center; font-size: 1.4rem;
-            font-weight: 700; color: #e74c3c;
+            font-weight: 700; color: #4294ad;
         }
         .input-row { display: flex; gap: 16px; margin-bottom: 20px; }
         .input-row label { flex: 1; }
@@ -428,7 +428,7 @@ $iconos_animo = ['bien' => '😊', 'regular' => '😐', 'mal' => '😔'];
             color: inherit; resize: vertical; margin-bottom: 20px;
         }
         .msg-exito { color: #2ecc71; margin-bottom: 16px; }
-        .msg-error { color: #e74c3c; margin-bottom: 16px; }
+        .msg-error { color: #36a899; margin-bottom: 16px; }
 
         /* ── Recomendaciones ── */
         .bienestar-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
@@ -463,9 +463,9 @@ $iconos_animo = ['bien' => '😊', 'regular' => '😐', 'mal' => '😔'];
         .ajustes-section { max-width: 480px; padding: 10px 0; }
         .ajustes-section h4 { margin: 24px 0 10px; font-size: 0.95rem; opacity: 0.6; text-transform: uppercase; letter-spacing: 0.05em; }
         .ajuste-fila { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.07); }
-        .btn-danger { background: rgba(231,76,60,0.15); color: #e74c3c; border: 1px solid rgba(231,76,60,0.3); padding: 8px 16px; border-radius: 8px; cursor: pointer; }
+        .btn-danger { background: rgba(231,76,60,0.15); color: #31af9e; border: 1px solid rgba(231,76,60,0.3); padding: 8px 16px; border-radius: 8px; cursor: pointer; }
         .badge-pendiente {
-            background: #e74c3c; color: #fff; border-radius: 50%;
+            background: #369e99; color: #fff; border-radius: 50%;
             font-size: 0.7rem; padding: 1px 6px; margin-left: 4px;
             display: inline-block; line-height: 1.5;
         }
@@ -663,7 +663,7 @@ $iconos_animo = ['bien' => '😊', 'regular' => '😐', 'mal' => '😔'];
         }
         .cal-day.otro-mes { opacity: 0.2; }
         .cal-day.hoy {
-            background: #e74c3c;
+            background: #4170d4;
             color: #fff;
             font-weight: 700;
             border-radius: 50%;
@@ -786,9 +786,9 @@ $iconos_animo = ['bien' => '😊', 'regular' => '😐', 'mal' => '😔'];
             </div>
         </div>
 
-        <button class="menu-item <?= $seccion_activa === 'dashboard'  ? 'active' : '' ?>"
-                onclick="mostrarSeccion('dashboard')">
-            <span class="icon">🏠</span><span class="text">Dashboard</span>
+        <button class="menu-item <?= $seccion_activa === 'test'  ? 'active' : '' ?>"
+                onclick="mostrarSeccion('test')">
+            <span class="icon">🏠</span><span class="text">Test</span>
         </button>
 
         <button class="menu-item <?= $seccion_activa === 'registrar'  ? 'active' : '' ?>"
@@ -893,6 +893,31 @@ $iconos_animo = ['bien' => '😊', 'regular' => '😐', 'mal' => '😔'];
             </div>
         </div>
 
+        <!--ESTO ES PARA EL TEST (CUIDADO SI TOCA LA ONDA ES MEDIO DELICADA)-->
+        <div id="section-test" class="section-panel <?= $seccion_activa === 'test' ? 'activa' : '' ?>">
+            <div class="contenedor-test-limpio">
+                <?php include 'seccion_pruebas.php'; ?>
+            </div>
+        </div>
+
+        <div class="contenedor-test-limpio">
+    <?php 
+        // Obtenemos la sección de la URL LA QUE ESTA EN PRUEBAS OKA??!!!
+        $seccion_activa = $_GET['seccion'] ?? 'inicio';
+
+        if ($seccion_activa === 'resultados') {
+            // SI ESTAMOS AQUÍ, PHP SOLO MUESTRA LOS RESULTADOS, SOLO LOS R.E.S.U.L.T.A.D.O.S
+            include 'seccion_resultados.php'; 
+        } 
+        elseif ($seccion_activa === 'test') {
+            // SI ESTAMOS AQUÍ, PHP SOLO MUESTRA LAS PREGUNTAS
+            include 'seccion_pruebas.php';
+        } 
+        else {
+            // AQUÍ PARA EL INICIO SI AGREGO OTRA COSA ESTO
+        }
+    ?>
+</div>
         <!-- ── SECCIÓN: REGISTRAR ESTRÉS ─────────────────────── -->
         <div id="section-registrar" class="section-panel <?= $seccion_activa === 'registrar' ? 'activa' : '' ?>">
             <div class="form-estres">
@@ -963,22 +988,10 @@ $iconos_animo = ['bien' => '😊', 'regular' => '😐', 'mal' => '😔'];
 
         <!-- ── SECCIÓN: GRÁFICA ───────────────────────────────── -->
         <div id="section-progreso" class="section-panel <?= $seccion_activa === 'progreso' ? 'activa' : '' ?>">
-            <h3 style="margin-bottom:20px;">Tu progreso — últimos 14 días</h3>
+    <h3 style="margin-bottom:20px;">Tu progreso</h3>
 
-            <?php if (empty($chart_data)): ?>
-                <div class="chart-empty">
-                    <p>📊 Aún no hay datos suficientes para mostrar la gráfica.</p>
-                    <p><a href="#" onclick="mostrarSeccion('registrar')" style="color:#2ecc71;">
-                        Empieza registrando tu estrés de hoy.
-                    </a></p>
-                </div>
-            <?php else: ?>
-                <div class="chart-container">
-                    <canvas id="chart-estres" height="300"></canvas>
-                </div>
-            <?php endif; ?>
-        </div>
-
+    <?php include 'visualizacion_graficas.php'; ?>
+</div>
         <!-- ── SECCIÓN: BIENESTAR ─────────────────────────────── -->
         <div id="section-bienestar" class="section-panel <?= $seccion_activa === 'bienestar' ? 'activa' : '' ?>">
             <div class="bienestar-header">
@@ -1055,7 +1068,6 @@ $iconos_animo = ['bien' => '😊', 'regular' => '😐', 'mal' => '😔'];
 <script src="dashboard-interactivo.js"></script>
 <script src="navegación.js"></script>
 <script src="forgot-password.js"></script>
-
 <!-- ─── Script principal del dashboard ────────────────────────────────── -->
 <script>
 // ── Navegación entre secciones ────────────────────────────────────────────
@@ -1188,10 +1200,10 @@ document.addEventListener('DOMContentLoaded', function () {
             datasets: [{
                 label: 'Nivel de estrés',
                 data: data,
-                borderColor: '#e74c3c',
+                borderColor: '#4ea9f3',
                 backgroundColor: 'rgba(231,76,60,0.08)',
                 borderWidth: 2,
-                pointBackgroundColor: '#e74c3c',
+                pointBackgroundColor: '#3c78e7',
                 pointRadius: 4,
                 tension: 0.35,
                 fill: true,

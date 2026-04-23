@@ -2,7 +2,7 @@
 
 define('DB_HOST',     'localhost');
 define('DB_PORT',     '5432');
-define('DB_NAME',     'prueba');
+define('DB_NAME',     'Detector');
 define('DB_USER',     'postgres');
 define('DB_PASSWORD', 'Adwyack104');
 

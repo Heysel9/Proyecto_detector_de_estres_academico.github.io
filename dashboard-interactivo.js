@@ -9,15 +9,15 @@ document.addEventListener('DOMContentLoaded', () => {
         const titulo = document.querySelector('.hero-module h2');
         let saludo = "";
 
-        if (hora >= 5 && hora < 12)       saludo = "¡Buenos días, Recluta! ☀️";
-        else if (hora >= 12 && hora < 19) saludo = "¡Buenas tardes! ☕";
-        else                              saludo = "¡Buenas noches, querido estudiante! 🌙";
+        if (hora >= 5 && hora < 12)       saludo = "¡Buenos días! ";
+        else if (hora >= 12 && hora < 19) saludo = "¡Buenas tardes!";
+        else                              saludo = "¡Buenas noches, querido estudiante! ";
 
         if (titulo) titulo.innerText = saludo;
     };
 
     // =============================================
-    // 2. Proverbios Dinámicos
+    // 2. Frases x
     // =============================================
     const proverbios = [
         "«Si no peleas, no puedes ganar».",

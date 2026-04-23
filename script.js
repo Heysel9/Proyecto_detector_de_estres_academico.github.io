@@ -115,7 +115,7 @@ document.addEventListener('DOMContentLoaded', () => {
     renderCalendar(currentDate);
 
     // =============================================
-    //  LÁMPARA — PROVERBIO DIARIO
+    //  LÁMPARA — fraes x motivadoras a las 2am
     // =============================================
     const proverbios = [
         "El conocimiento es la luz que ilumina el camino.",
@@ -138,3 +138,16 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
 }); // Fin DOMContentLoaded
+
+
+async function cargarPreguntas() {
+    try {
+        const respuesta = await fetch('instrumentos.json');
+        const data = await respuesta.json();
+        console.log("Preguntas cargadas con éxito", data);
+        // Aquí llamás a la función que dibuja las preguntas en pantalla
+    } catch (error) {
+        console.error("Error cargando el JSON:", error);
+    }
+}
+cargarPreguntas();
