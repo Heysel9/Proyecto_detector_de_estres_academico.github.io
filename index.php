@@ -793,7 +793,7 @@ $iconos_animo = ['bien' => '😊', 'regular' => '😐', 'mal' => '😔'];
 
         <button class="menu-item <?= $seccion_activa === 'registrar'  ? 'active' : '' ?>"
                 onclick="mostrarSeccion('registrar')">
-            <span class="icon">➕</span><span class="text">Registrar</span>
+            <span class="icon">✚</span><span class="text">Registrar</span>
         </button>
 
         <button class="menu-item <?= $seccion_activa === 'progreso'   ? 'active' : '' ?>"
