@@ -10,7 +10,6 @@ $recovery_msg   = '';
 $msg_estres     = '';
 $error_estres   = '';
 
-
 // ─── POST handler ──────────────────────────────────────────────────────────
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
@@ -166,8 +165,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 }
-
-
 
 // ─── GET: marcar recomendación como vista ──────────────────────────────────
 if (isset($_GET['vista']) && isset($_SESSION['usuario_id'])) {
@@ -772,8 +769,6 @@ $iconos_animo = ['bien' => '😊', 'regular' => '😐', 'mal' => '😔'];
     </div>
 </div>
 
-
-
 <?php else: ?>
 
 <!-- ════════════════════════════════
@@ -782,10 +777,10 @@ $iconos_animo = ['bien' => '😊', 'regular' => '😐', 'mal' => '😔'];
 <div class="dashboard-container" id="dashboard-view" style="display:flex; opacity:1;">
 
     <!-- SIDEBAR -->
-   <aside class="sidebar">
+    <aside class="sidebar">
     <div class="profile-section" onclick="mostrarSeccion('ajustes')" style="cursor: pointer;">
         <div class="avatar-circle">
-            <svg viewBox="0 0 24 24" width="40" height="40" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#14a0ab" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
                 <circle cx="12" cy="7" r="4"></circle>
             </svg>
@@ -798,7 +793,7 @@ $iconos_animo = ['bien' => '😊', 'regular' => '😐', 'mal' => '😔'];
 
     <button class="menu-item <?= $seccion_activa === 'dashboard' ? 'active' : '' ?>" onclick="mostrarSeccion('dashboard')">
         <span class="icon">
-            <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#14a0ab" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
                 <polyline points="9 22 9 12 15 12 15 22"></polyline>
             </svg>
@@ -806,10 +801,23 @@ $iconos_animo = ['bien' => '😊', 'regular' => '😐', 'mal' => '😔'];
         <span class="text">Dashboard</span>
     </button>
 
+    <button class="menu-item <?= $seccion_activa === 'test' ? 'active' : '' ?>" onclick="mostrarSeccion('test')">
+        <span class="icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#14a0ab" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+                <line x1="16" y1="13" x2="8" y2="13"></line>
+                <line x1="16" y1="17" x2="8" y2="17"></line>
+                <polyline points="10 9 9 9 8 9"></polyline>
+            </svg>
+        </span>
+        <span class="text">Test</span>
+    </button>
+
 
     <button class="menu-item <?= $seccion_activa === 'progreso' ? 'active' : '' ?>" onclick="mostrarSeccion('progreso')">
         <span class="icon">
-            <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#14a0ab" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <line x1="18" y1="20" x2="18" y2="10"></line>
                 <line x1="12" y1="20" x2="12" y2="4"></line>
                 <line x1="6" y1="20" x2="6" y2="14"></line>
@@ -820,7 +828,7 @@ $iconos_animo = ['bien' => '😊', 'regular' => '😐', 'mal' => '😔'];
 
     <button class="menu-item <?= $seccion_activa === 'bienestar' ? 'active' : '' ?>" onclick="mostrarSeccion('bienestar')">
         <span class="icon">
-            <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#14a0ab" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l8.84-8.84 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
             </svg>
         </span>
@@ -832,7 +840,7 @@ $iconos_animo = ['bien' => '😊', 'regular' => '😐', 'mal' => '😔'];
 
     <button class="menu-item <?= $seccion_activa === 'ajustes' ? 'active' : '' ?>" onclick="mostrarSeccion('ajustes')">
         <span class="icon">
-            <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#14a0ab" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <circle cx="12" cy="12" r="3"></circle>
                 <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
             </svg>
@@ -842,7 +850,7 @@ $iconos_animo = ['bien' => '😊', 'regular' => '😐', 'mal' => '😔'];
 
     <button class="menu-item logout-btn" onclick="window.location.href='logout.php'">
         <span class="icon">
-            <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#14a0ab" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
                 <polyline points="16 17 21 12 16 7"></polyline>
                 <line x1="21" y1="12" x2="9" y2="12"></line>
@@ -851,6 +859,7 @@ $iconos_animo = ['bien' => '😊', 'regular' => '😐', 'mal' => '😔'];
         <span class="text">Cerrar Sesión</span>
     </button>
 </aside>
+
     <!-- CONTENIDO PRINCIPAL -->
     <main class="main-content">
         <button id="btn-eye-care" class="btn-rest">
@@ -888,18 +897,20 @@ $iconos_animo = ['bien' => '😊', 'regular' => '😐', 'mal' => '😔'];
             </div>
 
             <!-- MINI-CARDS con datos reales -->
-            <div class="cards-grid">
-                <div class="mini-card card-estres">
-                    <?php if ($ultimo_registro): ?>
-                        <span class="card-valor"><?= $ultimo_registro['nivel_estres'] ?>/10</span>
-                        <span class="card-label">Estrés último registro</span>
-                        <small style="opacity:.5;"><?= $iconos_animo[$ultimo_registro['estado_animo']] ?? '' ?> <?= ucfirst($ultimo_registro['estado_animo']) ?></small>
-                    <?php else: ?>
-                        <span class="card-valor">—</span>
-                        <span class="card-label">Sin registros aún</span>
-                        <a href="#" onclick="mostrarSeccion('registrar')" style="font-size:.8rem; color:#2ecc71;">Registrar ahora</a>
-                    <?php endif; ?>
-                </div>
+                
+<div class="cards-grid">
+    <div class="mini-card card-estres" onclick="mostrarSeccion('test')" style="cursor: pointer;">
+        <div class="linea-decorativa estres"></div>
+        <?php if ($ultimo_registro): ?>
+            <span class="card-valor"><?= $ultimo_registro['nivel_estres'] ?>/10</span>
+            <span class="card-label">Estrés último registro</span>
+            <small class="card-info"><?= $iconos_animo[$ultimo_registro['estado_animo']] ?? '' ?> <?= ucfirst($ultimo_registro['estado_animo']) ?></small>
+        <?php else: ?>
+            <span class="card-valor">—</span>
+            <span class="card-label">Sin registros aún</span>
+            <a href="#" class="btn-link-test">Realizar test</a>
+        <?php endif; ?>
+    </div>
 
                 <div class="mini-card card-sueno">
                     <?php if ($ultimo_registro): ?>
@@ -949,7 +960,14 @@ $iconos_animo = ['bien' => '😊', 'regular' => '😐', 'mal' => '😔'];
         }
     ?>
 </div>
-        
+
+
+        <!-- ── SECCIÓN: GRÁFICA ───────────────────────────────── -->
+        <div id="section-progreso" class="section-panel <?= $seccion_activa === 'progreso' ? 'activa' : '' ?>">
+    <h3 style="margin-bottom:20px;">Tu progreso</h3>
+
+    <?php include 'visualizacion_graficas.php'; ?>
+</div>
         <!-- ── SECCIÓN: BIENESTAR ─────────────────────────────── -->
         <div id="section-bienestar" class="section-panel <?= $seccion_activa === 'bienestar' ? 'activa' : '' ?>">
             <div class="bienestar-header">
