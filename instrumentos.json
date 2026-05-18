@@ -1,0 +1,62 @@
+{
+  "tests": [
+    {
+      "id": "pss10",
+      "nombre": "PSS-10: Escala de Estrés Percibido",
+      "descripcion": "En el último mes, ¿con qué frecuencia te has sentido...",
+      "preguntas": [
+        "¿Afectado por algo que ocurrió inesperadamente?",
+        "¿Incapaz de controlar las cosas importantes en tu vida?",
+        "¿Nervioso o estresado?",
+        "¿Seguro sobre tu capacidad para manejar tus problemas personales?",
+        "¿Que las cosas te van bien?",
+        "¿Que no podías afrontar todas las cosas que tenías que hacer?",
+        "¿Capaz de controlar las dificultades de tu vida?",
+        "¿Que tenías todo bajo control?",
+        "¿Enfadado por cosas que ocurrieron fuera de tu control?",
+        "¿Que las dificultades se acumulaban tanto que no podías superarlas?"
+      ],
+      "escala": [
+        {"etiqueta": "Nunca", "valor": 0},
+        {"etiqueta": "Casi nunca", "valor": 1},
+        {"etiqueta": "A veces", "valor": 2},
+        {"etiqueta": "A menudo", "valor": 3},
+        {"etiqueta": "Muy a menudo", "valor": 4}
+      ]
+    },
+    {
+      "id": "dass21",
+      "nombre": "DASS-21: Depresión, Ansiedad y Estrés",
+      "descripcion": "Marca cuánto te aplicó cada frase durante la última semana...",
+      "preguntas": [
+        "Me costó mucho descargar la tensión.",
+        "Me di cuenta de que tenía la boca seca.",
+        "No podía sentir ningún sentimiento positivo.",
+        "Se me hizo difícil respirar.",
+        "Se me hizo difícil tomar la iniciativa para hacer cosas.",
+        "Reaccioné de forma exagerada en ciertas situaciones.",
+        "Sentí temblores (por ejemplo, en las manos).",
+        "Sentí que estaba muy nervioso.",
+        "Me preocupé por situaciones en las que podría entrar en pánico.",
+        "Sentí que no tenía nada por qué ilusionarme.",
+        "Me sentí inquieto.",
+        "Se me hizo difícil relajarme.",
+        "Me sentí triste y deprimido.",
+        "No toleré nada que me impidiera continuar con lo que estaba haciendo.",
+        "Sentí que estaba al borde del pánico.",
+        "No fui capaz de entusiasmarme por nada.",
+        "Sentí que valía poco como persona.",
+        "Sentí que estaba muy irritable.",
+        "Sentí los latidos de mi corazón a pesar de no haber hecho esfuerzo físico.",
+        "Sentí miedo sin que hubiera un motivo racional.",
+        "Sentí que la vida no tenía sentido."
+      ],
+      "escala": [
+        {"etiqueta": "No me ha ocurrido", "valor": 0},
+        {"etiqueta": "Un poco", "valor": 1},
+        {"etiqueta": "Bastante", "valor": 2},
+        {"etiqueta": "Mucho", "valor": 3}
+      ]
+    }
+  ]
+}

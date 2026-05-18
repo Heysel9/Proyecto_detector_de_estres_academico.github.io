@@ -10,6 +10,7 @@ $recovery_msg   = '';
 $msg_estres     = '';
 $error_estres   = '';
 
+
 // ─── POST handler ──────────────────────────────────────────────────────────
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
@@ -165,6 +166,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 }
+
+
 
 // ─── GET: marcar recomendación como vista ──────────────────────────────────
 if (isset($_GET['vista']) && isset($_SESSION['usuario_id'])) {
@@ -398,7 +401,7 @@ $iconos_animo = ['bien' => '😊', 'regular' => '😐', 'mal' => '😔'];
         .mini-card { display: flex; flex-direction: column; gap: 6px; }
         .mini-card .card-valor { font-size: 2rem; font-weight: 700; }
         .mini-card .card-label { font-size: 0.8rem; opacity: 0.7; }
-        .card-estres  .card-valor { color: #e74c3c; }
+        .card-estres  .card-valor { color: #3c8ce7; }
         .card-sueno   .card-valor { color: #3498db; }
         .card-recs    .card-valor { color: #2ecc71; }
 
@@ -410,7 +413,7 @@ $iconos_animo = ['bien' => '😊', 'regular' => '😐', 'mal' => '😔'];
         .slider-group input[type="range"] { flex: 1; }
         .slider-group span {
             min-width: 32px; text-align: center; font-size: 1.4rem;
-            font-weight: 700; color: #e74c3c;
+            font-weight: 700; color: #4294ad;
         }
         .input-row { display: flex; gap: 16px; margin-bottom: 20px; }
         .input-row label { flex: 1; }
@@ -428,7 +431,7 @@ $iconos_animo = ['bien' => '😊', 'regular' => '😐', 'mal' => '😔'];
             color: inherit; resize: vertical; margin-bottom: 20px;
         }
         .msg-exito { color: #2ecc71; margin-bottom: 16px; }
-        .msg-error { color: #e74c3c; margin-bottom: 16px; }
+        .msg-error { color: #36a899; margin-bottom: 16px; }
 
         /* ── Recomendaciones ── */
         .bienestar-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
@@ -463,9 +466,9 @@ $iconos_animo = ['bien' => '😊', 'regular' => '😐', 'mal' => '😔'];
         .ajustes-section { max-width: 480px; padding: 10px 0; }
         .ajustes-section h4 { margin: 24px 0 10px; font-size: 0.95rem; opacity: 0.6; text-transform: uppercase; letter-spacing: 0.05em; }
         .ajuste-fila { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.07); }
-        .btn-danger { background: rgba(231,76,60,0.15); color: #e74c3c; border: 1px solid rgba(231,76,60,0.3); padding: 8px 16px; border-radius: 8px; cursor: pointer; }
+        .btn-danger { background: rgba(231,76,60,0.15); color: #31af9e; border: 1px solid rgba(231,76,60,0.3); padding: 8px 16px; border-radius: 8px; cursor: pointer; }
         .badge-pendiente {
-            background: #e74c3c; color: #fff; border-radius: 50%;
+            background: #369e99; color: #fff; border-radius: 50%;
             font-size: 0.7rem; padding: 1px 6px; margin-left: 4px;
             display: inline-block; line-height: 1.5;
         }
@@ -663,7 +666,7 @@ $iconos_animo = ['bien' => '😊', 'regular' => '😐', 'mal' => '😔'];
         }
         .cal-day.otro-mes { opacity: 0.2; }
         .cal-day.hoy {
-            background: #e74c3c;
+            background: #4170d4;
             color: #fff;
             font-weight: 700;
             border-radius: 50%;
@@ -769,6 +772,8 @@ $iconos_animo = ['bien' => '😊', 'regular' => '😐', 'mal' => '😔'];
     </div>
 </div>
 
+
+
 <?php else: ?>
 
 <!-- ════════════════════════════════
@@ -777,49 +782,75 @@ $iconos_animo = ['bien' => '😊', 'regular' => '😐', 'mal' => '😔'];
 <div class="dashboard-container" id="dashboard-view" style="display:flex; opacity:1;">
 
     <!-- SIDEBAR -->
-    <aside class="sidebar">
-        <div class="profile-section">
-            <div class="avatar">🤖</div>
-            <div class="profile-info">
-                <h3>Bienestar Estudiantil</h3>
-                <p>Perfil del estudiante</p>
-            </div>
+   <aside class="sidebar">
+    <div class="profile-section" onclick="mostrarSeccion('ajustes')" style="cursor: pointer;">
+        <div class="avatar-circle">
+            <svg viewBox="0 0 24 24" width="40" height="40" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+            </svg>
         </div>
+        <div class="profile-info">
+            <h3>Bienestar Estudiantil</h3>
+            <p>Perfil del estudiante</p>
+        </div>
+    </div>
 
-        <button class="menu-item <?= $seccion_activa === 'dashboard'  ? 'active' : '' ?>"
-                onclick="mostrarSeccion('dashboard')">
-            <span class="icon">🏠︎</span><span class="text">Dashboard</span>
-        </button>
+    <button class="menu-item <?= $seccion_activa === 'dashboard' ? 'active' : '' ?>" onclick="mostrarSeccion('dashboard')">
+        <span class="icon">
+            <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                <polyline points="9 22 9 12 15 12 15 22"></polyline>
+            </svg>
+        </span>
+        <span class="text">Dashboard</span>
+    </button>
 
-        <button class="menu-item <?= $seccion_activa === 'registrar'  ? 'active' : '' ?>"
-                onclick="mostrarSeccion('registrar')">
-            <span class="icon">✚</span><span class="text">Registrar</span>
-        </button>
 
-        <button class="menu-item <?= $seccion_activa === 'progreso'   ? 'active' : '' ?>"
-                onclick="mostrarSeccion('progreso')">
-            <span class="icon">📊</span><span class="text">Gráfica</span>
-        </button>
+    <button class="menu-item <?= $seccion_activa === 'progreso' ? 'active' : '' ?>" onclick="mostrarSeccion('progreso')">
+        <span class="icon">
+            <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="18" y1="20" x2="18" y2="10"></line>
+                <line x1="12" y1="20" x2="12" y2="4"></line>
+                <line x1="6" y1="20" x2="6" y2="14"></line>
+            </svg>
+        </span>
+        <span class="text">Gráfica</span>
+    </button>
 
-        <button class="menu-item <?= $seccion_activa === 'bienestar'  ? 'active' : '' ?>"
-                onclick="mostrarSeccion('bienestar')">
-            <span class="icon">🧘</span>
-            <span class="text">Bienestar</span>
-            <?php if ($stats_pendientes > 0): ?>
-                <span class="badge-pendiente"><?= $stats_pendientes ?></span>
-            <?php endif; ?>
-        </button>
+    <button class="menu-item <?= $seccion_activa === 'bienestar' ? 'active' : '' ?>" onclick="mostrarSeccion('bienestar')">
+        <span class="icon">
+            <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l8.84-8.84 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+            </svg>
+        </span>
+        <span class="text">Bienestar</span>
+        <?php if ($stats_pendientes > 0): ?>
+            <span class="badge-pendiente"><?= $stats_pendientes ?></span>
+        <?php endif; ?>
+    </button>
 
-        <button class="menu-item <?= $seccion_activa === 'ajustes'    ? 'active' : '' ?>"
-                onclick="mostrarSeccion('ajustes')">
-            <span class="icon">⚙️</span><span class="text">Ajustes</span>
-        </button>
+    <button class="menu-item <?= $seccion_activa === 'ajustes' ? 'active' : '' ?>" onclick="mostrarSeccion('ajustes')">
+        <span class="icon">
+            <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="3"></circle>
+                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+            </svg>
+        </span>
+        <span class="text">Ajustes</span>
+    </button>
 
-        <button class="menu-item" onclick="window.location.href='logout.php'">
-            <span class="icon">🚪</span><span class="text">Cerrar Sesión</span>
-        </button>
-    </aside>
-
+    <button class="menu-item logout-btn" onclick="window.location.href='logout.php'">
+        <span class="icon">
+            <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                <polyline points="16 17 21 12 16 7"></polyline>
+                <line x1="21" y1="12" x2="9" y2="12"></line>
+            </svg>
+        </span>
+        <span class="text">Cerrar Sesión</span>
+    </button>
+</aside>
     <!-- CONTENIDO PRINCIPAL -->
     <main class="main-content">
         <button id="btn-eye-care" class="btn-rest">
@@ -893,92 +924,32 @@ $iconos_animo = ['bien' => '😊', 'regular' => '😐', 'mal' => '😔'];
             </div>
         </div>
 
-        <!-- ── SECCIÓN: REGISTRAR ESTRÉS ─────────────────────── -->
-        <div id="section-registrar" class="section-panel <?= $seccion_activa === 'registrar' ? 'activa' : '' ?>">
-            <div class="form-estres">
-                <h3>¿Cómo te sientes hoy?</h3>
-
-                <?php if ($msg_estres): ?>
-                    <p class="msg-exito">✅ <?= htmlspecialchars($msg_estres) ?></p>
-                <?php endif; ?>
-                <?php if ($error_estres): ?>
-                    <p class="msg-error">⚠️ <?= htmlspecialchars($error_estres) ?></p>
-                <?php endif; ?>
-
-                <form method="POST" action="index.php">
-                    <input type="hidden" name="action" value="registrar_estres">
-
-                    <label>Nivel de estrés (1 = tranquilo &nbsp;·&nbsp; 10 = al límite)</label>
-                    <div class="slider-group">
-                        <input type="range" name="nivel_estres" min="1" max="10" value="5"
-                               oninput="document.getElementById('val-estres').textContent = this.value">
-                        <span id="val-estres">5</span>
-                    </div>
-
-                    <div class="input-row">
-                        <label>Horas de sueño
-                            <input type="number" name="horas_sueno" min="0" max="24" step="0.5" value="7">
-                        </label>
-                        <label>Horas de estudio
-                            <input type="number" name="horas_estudio" min="0" max="24" step="0.5" value="2">
-                        </label>
-                    </div>
-
-                    <label>Estado de ánimo</label>
-                    <div class="animo-group">
-                        <label><input type="radio" name="estado_animo" value="bien"> 😊 Bien</label>
-                        <label><input type="radio" name="estado_animo" value="regular" checked> 😐 Regular</label>
-                        <label><input type="radio" name="estado_animo" value="mal"> 😔 Mal</label>
-                    </div>
-
-                    <label>¿Qué materias te preocupan hoy?</label>
-                    <div class="materias-grid">
-                        <?php foreach ($materias as $m): ?>
-                            <div class="materia-item">
-                                <label>
-                                    <input type="checkbox"
-                                           onchange="toggleSlider(this, 'sl-<?= $m['id'] ?>')">
-                                    <span style="color:<?= htmlspecialchars($m['color_hex']) ?>; font-weight:600;">
-                                        <?= htmlspecialchars($m['nombre']) ?>
-                                    </span>
-                                </label>
-                                <input type="range" id="sl-<?= $m['id'] ?>"
-                                       name="materias[<?= $m['id'] ?>]"
-                                       min="1" max="5" value="3" disabled
-                                       style="opacity:.3; width:100%;">
-                                <small style="opacity:.5; font-size:.75rem;">Preocupación: 1–5</small>
-                            </div>
-                        <?php endforeach; ?>
-                    </div>
-
-                    <label>Notas (opcional)
-                        <textarea name="notas" rows="3"
-                                  placeholder="¿Qué te tiene estresado hoy? Escríbelo aquí..."></textarea>
-                    </label>
-
-                    <button type="submit" class="btn-submit">Guardar registro</button>
-                </form>
+        <!--ESTO ES PARA EL TEST (CUIDADO SI TOCA LA ONDA ES MEDIO DELICADA)-->
+        <div id="section-test" class="section-panel <?= $seccion_activa === 'test' ? 'activa' : '' ?>">
+            <div class="contenedor-test-limpio">
+                <?php include 'seccion_pruebas.php'; ?>
             </div>
         </div>
 
-        <!-- ── SECCIÓN: GRÁFICA ───────────────────────────────── -->
-        <div id="section-progreso" class="section-panel <?= $seccion_activa === 'progreso' ? 'activa' : '' ?>">
-            <h3 style="margin-bottom:20px;">Tu progreso — últimos 14 días</h3>
+        <div class="contenedor-test-limpio">
+    <?php 
+        // Obtenemos la sección de la URL LA QUE ESTA EN PRUEBAS OKA??!!!
+        $seccion_activa = $_GET['seccion'] ?? 'inicio';
 
-            <?php if (empty($chart_data)): ?>
-                <div class="chart-empty">
-                    <p>📊 Aún no hay datos suficientes para mostrar la gráfica.</p>
-                    <p><a href="#" onclick="mostrarSeccion('registrar')" style="color:#2ecc71;">
-                        Empieza registrando tu estrés de hoy.
-                    </a></p>
-                </div>
-            <?php else: ?>
-                <div class="chart-container">
-                    <canvas id="chart-estres" height="300"></canvas>
-                </div>
-            <?php endif; ?>
-        </div>
-
+        if ($seccion_activa === 'resultados') {
+            // SI ESTAMOS AQUÍ, PHP SOLO MUESTRA LOS RESULTADOS, SOLO LOS R.E.S.U.L.T.A.D.O.S
+            include 'seccion_resultados.php'; 
+        } 
+        elseif ($seccion_activa === 'test') {
+            // SI ESTAMOS AQUÍ, PHP SOLO MUESTRA LAS PREGUNTAS
+            include 'seccion_pruebas.php';
+        } 
+        else {
+            // AQUÍ PARA EL INICIO SI AGREGO OTRA COSA ESTO
+        }
+    ?>
+</div>
+        
         <!-- ── SECCIÓN: BIENESTAR ─────────────────────────────── -->
         <div id="section-bienestar" class="section-panel <?= $seccion_activa === 'bienestar' ? 'activa' : '' ?>">
             <div class="bienestar-header">
@@ -1055,7 +1026,6 @@ $iconos_animo = ['bien' => '😊', 'regular' => '😐', 'mal' => '😔'];
 <script src="dashboard-interactivo.js"></script>
 <script src="navegación.js"></script>
 <script src="forgot-password.js"></script>
-
 <!-- ─── Script principal del dashboard ────────────────────────────────── -->
 <script>
 // ── Navegación entre secciones ────────────────────────────────────────────
@@ -1188,10 +1158,10 @@ document.addEventListener('DOMContentLoaded', function () {
             datasets: [{
                 label: 'Nivel de estrés',
                 data: data,
-                borderColor: '#e74c3c',
+                borderColor: '#4ea9f3',
                 backgroundColor: 'rgba(231,76,60,0.08)',
                 borderWidth: 2,
-                pointBackgroundColor: '#e74c3c',
+                pointBackgroundColor: '#3c78e7',
                 pointRadius: 4,
                 tension: 0.35,
                 fill: true,
