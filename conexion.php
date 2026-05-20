@@ -1,10 +1,12 @@
 <?php
 
-define('DB_HOST',     'localhost');
-define('DB_PORT',     '5432');
-define('DB_NAME',     'Detector');
-define('DB_USER',     'postgres');
-define('DB_PASSWORD', 'canelita20');
+// Obtenemos los valores de las variables de entorno (que configuraremos en Render)
+// Si no existen (como en tu PC), usamos los valores por defecto que ya tenías
+define('DB_HOST',     getenv('DB_HOST') ?: 'localhost');
+define('DB_PORT',     getenv('DB_PORT') ?: '5432');
+define('DB_NAME',     getenv('DB_NAME') ?: 'Detector');
+define('DB_USER',     getenv('DB_USER') ?: 'postgres');
+define('DB_PASSWORD', getenv('DB_PASSWORD') ?: 'Adwyack104');
 
 function conectarDB(): PDO {
     $dsn = sprintf('pgsql:host=%s;port=%s;dbname=%s', DB_HOST, DB_PORT, DB_NAME);
