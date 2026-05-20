@@ -23,6 +23,50 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' || isset($_GET['simular_exito'])) {
 ?>
 
 <style>
+
+ /* 1. Al principio de tu <style>, añade esto */
+:root {
+    color-scheme: light !important;
+}
+
+/* 2. Modifica la tarjeta para que sea inmune al modo oscuro */
+.form-card {
+    background-color: #ffffff !important;
+    color-scheme: light !important; /* Fuerza a los hijos a ser 'light' */
+    box-shadow: 0 15px 35px rgba(0,0,0,0.1) !important;
+}
+
+/* 3. La pregunta (Negro total, como en tu foto ideal) */
+.pregunta-texto {
+    font-size: 2rem;
+    font-weight: 800;
+    color: #000000 !important; 
+    -webkit-text-fill-color: #000000 !important; /* Obligatorio para Chrome en modo oscuro */
+    margin-bottom: 40px;
+}
+
+/* 4. El indicador naranja (Más fuerte para que resalte) */
+.test-indicator {
+    /* Un color naranja amarillento más fuerte para que resalte en blanco */
+    color: #f59e0b !important; 
+    
+    text-transform: uppercase;
+    font-weight: 800; /* Más grueso para que se vea mejor */
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+    display: block;
+    
+    /* TRUCO PARA MODO OSCURO: Esto evita que el navegador lo opaque */
+    -webkit-text-fill-color: #f59e0b !important;
+    filter: none !important;
+}
+
+/* 5. Las opciones (Para que no se vean blancas sobre blanco) */
+.custom-option {
+    background: #f1f5f9 !important;
+    color: #475569 !important;
+    font-weight: 600;
+}
     .evaluacion-wrapper {
         display: grid;
         grid-template-columns: 1fr;
@@ -46,7 +90,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' || isset($_GET['simular_exito'])) {
         width: 100%;
         padding: 60px;
         border-radius: 20px;
-        box-shadow: 0 15px 35px rgba(0,0,0,0.05);
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05);
         text-align: center;
         box-sizing: border-box;
     }
@@ -90,7 +134,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' || isset($_GET['simular_exito'])) {
     .custom-option:hover { background: #e2e8f0; }
 
     input[type="radio"]:checked + .custom-option {
-        background: #fff;
+        background: #ffffff;
         border-color: #3b82f6;
         color: #1e293b;
         box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);
@@ -258,6 +302,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' || isset($_GET['simular_exito'])) {
                                     <span style="margin-right: 15px;">○</span> <?= $opcion['etiqueta'] ?>
                                 </div>
                             </label>
+                            
                         <?php endforeach; ?>
                     </div>
 

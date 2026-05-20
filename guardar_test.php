@@ -115,3 +115,4 @@ try {
 } catch (Exception $e) {
     die("Error general del sistema: " . $e->getMessage());
 }
+

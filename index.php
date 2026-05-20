@@ -674,6 +674,10 @@ $iconos_animo = ['bien' => '😊', 'regular' => '😐', 'mal' => '😔'];
         .cal-day:not(.otro-mes):not(.hoy):hover {
             background: rgba(255,255,255,0.1);
             cursor: pointer;
+
+            
+
+            
         }
     </style>
 </head>
