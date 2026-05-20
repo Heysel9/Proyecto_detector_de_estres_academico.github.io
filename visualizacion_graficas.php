@@ -1,75 +1,77 @@
 <?php
-// 1. FORZAR CONEXIÓN
+// Mantenemos tu conexión intacta
 $host = "localhost";
 $port = "5432";
-$dbname = "Detector"; // <--- VERIFICA QUE SEA EXACTAMENTE ESTE NOMBRE
+$dbname = "Detector";
 $user = "postgres";
-$pass = "Adwyack104"; // <--- CAMBIA ESTO POR TU CONTRASEÑA REAL
+$pass = "Adwyack104";
 
 try {
     $pdo = new PDO("pgsql:host=$host;port=$port;dbname=$dbname", $user, $pass);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     
-    // DEBUG: Vamos a ver si la tabla existe de verdad para PHP
-    $check = $pdo->query("SELECT count(*) FROM information_schema.tables WHERE table_name = 'resultados_tests'")->fetchColumn();
-    echo "<script>console.log('¿Tabla resultados_tests existe?: " . ($check > 0 ? "SÍ" : "NO") . "');</script>";
-
-    // CONSULTA DIRECTA (Usando el ID 6 que confirmamos en tus capturas)
+    // Consulta original
     $stmt = $pdo->prepare('SELECT "fecha_realizacion", "puntaje_total" FROM "resultados_tests" WHERE "id_usuario" = 6 ORDER BY "fecha_realizacion" ASC');
     $stmt->execute();
     $res = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+    // LÓGICA DE AGRUPACIÓN CADA 3 DÍAS
+    $agrupados = [];
+    foreach ($res as $index => $row) {
+        // Agrupamos en bloques de 3
+        $grupo = floor($index / 3);
+        if (!isset($agrupados[$grupo])) {
+            $agrupados[$grupo] = ['total' => 0, 'count' => 0, 'fecha' => date("d/m", strtotime($row['fecha_realizacion']))];
+        }
+        $agrupados[$grupo]['total'] += (int)$row['puntaje_total'];
+        $agrupados[$grupo]['count']++;
+    }
+
     $l = []; $p = [];
-    foreach ($res as $row) {
-        $l[] = date("d/m", strtotime($row['fecha_realizacion']));
-        $p[] = (int)$row['puntaje_total'];
+    foreach ($agrupados as $g) {
+        $l[] = $g['fecha'];
+        $p[] = round($g['total'] / $g['count']); // Promedio del bloque
     }
     
     $js_labels = json_encode($l);
     $js_data = json_encode($p);
 
-    echo "<script>console.log('Datos recuperados: " . count($res) . "');</script>";
-
 } catch (Exception $e) {
-    echo "<div style='color:red;'>Error Crítico: " . $e->getMessage() . "</div>";
     $js_labels = "[]"; $js_data = "[]";
 }
 ?>
 
-<div style="height: 350px; width: 100%; background: #1a1a1a; border-radius: 10px; padding: 10px;">
+<div style="height: 300px; width: 100%; background: #ffffff; border-radius: 20px; padding: 25px; border: 1px solid #e2e8f0; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
     <canvas id="graficaFinal"></canvas>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
 document.addEventListener("DOMContentLoaded", function() {
-    const labels = <?php echo $js_labels; ?>;
-    const data = <?php echo $js_data; ?>;
-
-    if (labels.length === 0) {
-        console.error("No hay datos para graficar. Revisa la consola arriba.");
-        return;
-    }
-
     new Chart(document.getElementById('graficaFinal'), {
         type: 'line',
         data: {
-            labels: labels,
+            labels: <?php echo $js_labels; ?>,
             datasets: [{
-                label: 'Nivel de Estrés',
-                data: data,
-                borderColor: '#a78bfa',
-                tension: 0.3,
+                data: <?php echo $js_data; ?>,
+                borderColor: '#3b82f6',
+                borderWidth: 3,
+                tension: 0.5, // Curva muy suave, parece un diseño fluido
                 fill: true,
-                backgroundColor: 'rgba(167, 139, 250, 0.1)'
+                backgroundColor: 'rgba(59, 130, 246, 0.05)',
+                pointRadius: 6,
+                pointBackgroundColor: '#3b82f6',
+                pointBorderColor: '#ffffff',
+                pointBorderWidth: 2
             }]
         },
         options: {
             responsive: true,
             maintainAspectRatio: false,
+            plugins: { legend: { display: false } },
             scales: {
-                y: { beginAtZero: true, grid: { color: '#334155' } },
-                x: { grid: { color: '#334155' } }
+                y: { beginAtZero: true, max: 40, grid: { color: '#f1f5f9' }, ticks: { color: '#64748b' } },
+                x: { grid: { display: false }, ticks: { color: '#64748b' } }
             }
         }
     });
